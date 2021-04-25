@@ -2,9 +2,6 @@ const fastify = require('fastify')({
     logger: true
 })
 
-fastify.get('/', async (request, reply) => {
-    return { hello: 'world' }
-})
 
 const start = async () => {
     try {
@@ -15,3 +12,23 @@ const start = async () => {
     }
 }
 start()
+
+fastify.register(require('fastify-cors'), {
+    // put your options here
+})
+
+
+fastify.get('/', async (request, reply) => {
+    return { hello: 'world' }
+})
+
+
+fastify.get('/oven1/bake1/status', async (request, reply) => {
+    return {
+        status: "running",
+        progress: 0.3,
+        value: 200,
+    }
+})
+
+
