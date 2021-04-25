@@ -27,7 +27,16 @@ fastify.get('/oven1/bake1/status', async (request, reply) => {
     return {
         status: "running",
         progress: 0.3,
-        value: 200,
+        value: "271 °C",
+    }
+})
+
+
+fastify.get('/vacuum1/status', async (request, reply) => {
+    return {
+        status: "running",
+        progress: 0.7,
+        value: "Intensive Reinigung",
     }
 })
 
