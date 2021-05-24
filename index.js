@@ -48,17 +48,20 @@ fastify.get('/table1/data', async (request, reply) => {
 })
 
 
+
+
 fastify.post('/table1/edit', async (request, reply) => {
     const {id} = request.body
 
     const doesElementExist = db.table1.find(element => element.id === id)
 
     if(!doesElementExist) {
-        reply.code(400).send(`Element for table1 with id ${id} not found`)
+        reply.code(400).send(`Data element with id ${id} does not exist`)
     }
 
     db.table1 = db.table1.map((element) => {
         if(element.id === id) {
+            console.log("found");
             return request.body
         } else {
             return element
@@ -68,8 +71,19 @@ fastify.post('/table1/edit', async (request, reply) => {
     return db.table1
 })
 
+fastify.post('/table1/delete', async (request, reply) => {
+    const {id} = request.body
 
-// Löschen Methode
+    const doesElementExist = db.table1.find(element => element.id === id)
+
+    if(!doesElementExist) {
+        reply.code(400).send(`Data element with id ${id} does not exist`)
+    }
+
+    db.table1 = db.table1.filter((element) => !(element.id === id))
+
+    return db.table1
+})
 
 
 
