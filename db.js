@@ -33,8 +33,40 @@ let table1 = [
     },
 ]
 
+let oven1 = {
+    supportedPrograms:  [{
+        programName: "bake1",
+        title: "Backen",
+        iconName: "chef-hat",
+        inputs: ["temperature", "time"],
+        pModuleName: "LabeledProgress",
+        connectionUrl: "/bake"
+    },
+        {
+            programName: "warm",
+            title: "Aufwärmen",
+            iconName: "radiator",
+            inputs: ["time"],
+            pModuleName: "LabeledProgress",
+            connectionUrl: "/warm"
+        }],
+    runningPrograms: []
+}
+
+// {
+//     programName: "bake1",
+//         pModuleName: "LabeledProgress",
+//     customApi: "default",
+//     title: "Backen",
+//     iconName: "chef-hat",
+//     status: "running",
+//     progress: 0.3,
+//     value: "240 °C",
+// }
+
 module.exports = {
-    table1
+    table1,
+    oven1
 }
 
 

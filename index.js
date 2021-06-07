@@ -1,6 +1,7 @@
 const fastify = require('fastify')({
     logger: true
 })
+const _ = require("lodash")
 
 const db = require("./db")
 
@@ -24,24 +25,52 @@ fastify.get('/', async (request, reply) => {
     return { hello: 'world' }
 })
 
+/*
+ Oven 1
+ */
 
-fastify.get('/oven1/bake1/status', async (request, reply) => {
-    return {
-        status: "running",
-        progress: 0.3,
-        value: "260 °C",
+fastify.get('/oven1/supportedPrograms', async (request, reply) => {
+    return db.oven1.supportedPrograms
+})
+
+fastify.get('/oven1/runningPrograms', async (request, reply) => {
+    return db.oven1.runningPrograms
+})
+
+// start program
+fastify.post('/oven1/startProgram', async (request, reply) => {
+    const {programName} = request.body
+    const ovenData = db.oven1
+
+    const supportedProgram = ovenData.supportedPrograms.find(sp => sp.programName === programName)
+
+    if (!supportedProgram) {
+        reply.code(400).send("Program not supported")
     }
+
+    const alreadyRunningProgram = ovenData.runningPrograms.find(sp => sp.programName === programName)
+
+    if (alreadyRunningProgram) {
+        reply.code(400).send(`Program ${programName} is already running`)
+    }
+
+    const newProgram = ({
+        ...supportedProgram,
+        ...request.body
+    })
+
+    db.oven1.runningPrograms.push(newProgram)
+
+    return db.oven1.runningPrograms
 })
 
 
-fastify.get('/vacuum1/status', async (request, reply) => {
-    return {
-        status: "running",
-        progress: 0.7,
-        value: "Intensive Reinigung",
-    }
-})
+// stop program
 
+
+/*
+ Table 1
+ */
 
 fastify.get('/table1/data', async (request, reply) => {
     return db.table1
