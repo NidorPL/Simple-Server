@@ -83,7 +83,13 @@ fastify.post('/oven1/stopProgram', async (request, reply) => {
         reply.code(400).send(`Program ${programName} is not running`)
     }
 
-    db.oven1.runningPrograms = db.oven1.runningPrograms.filter(program => program.programName === programName)
+    console.log(0);
+    console.log(programName);
+
+    db.oven1.runningPrograms = db.oven1.runningPrograms.filter(program => program.programName !== programName)
+
+    console.log(1);
+    console.log(db.oven1.runningPrograms);
 
     return db.oven1.runningPrograms
 })
