@@ -35,36 +35,34 @@ let table1 = [
 
 let oven1 = {
     supportedPrograms:  [{
-        programName: "bake1",
-        title: "Backen",
+        programName: "Backen",
         iconName: "chef-hat",
         inputs: ["temperature", "valueSuffix", "time"],
         pModuleName: "LabeledProgress",
         connectionUrl: "/bake"
     },
+    {
+        programName: "Aufwärmen",
+        iconName: "radiator",
+        inputs: ["time"],
+        pModuleName: "LabeledProgress",
+        connectionUrl: "/warm"
+    }],
+    runningPrograms: [
         {
-            programName: "warm",
-            title: "Aufwärmen",
-            iconName: "radiator",
-            inputs: ["time"],
+            programName: "bake1",
             pModuleName: "LabeledProgress",
-            connectionUrl: "/warm"
-        }],
-    runningPrograms: []
+            customApi: "default",
+            title: "Backen",
+            iconName: "chef-hat",
+            status: "running",
+            progress: 0.3,
+            value: "240",
+            valueSuffix: "°C",
+            inputs: ["temperature", "time"],
+        }
+    ]
 }
-
-// {
-//     programName: "bake1",
-//         pModuleName: "LabeledProgress",
-//     customApi: "default",
-//     title: "Backen",
-//     iconName: "chef-hat",
-//     status: "running",
-//     progress: 0.3,
-//     value: "240",
-//     valueSuffix: "°C",
-//     inputs: ["temperature", "time"],
-// }
 
 
 
