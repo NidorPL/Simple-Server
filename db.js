@@ -37,23 +37,24 @@ let oven1 = {
     supportedPrograms:  [{
         programName: "Backen",
         iconName: "chef-hat",
-        inputs: ["temperature", "valueSuffix", "time"],
+        inputs: ["temperatur", "Zeit in Minuten"],
         pModuleName: "LabeledProgress",
+        valueSuffix: "°C",
         connectionUrl: "/bake"
     },
     {
         programName: "Aufwärmen",
         iconName: "radiator",
-        inputs: ["time"],
+        inputs: ["Zeit in Minuten"],
+        valueSuffix: "Min",
         pModuleName: "LabeledProgress",
         connectionUrl: "/warm"
     }],
     runningPrograms: [
         {
-            programName: "bake1",
+            programName: "Backen",
             pModuleName: "LabeledProgress",
             customApi: "default",
-            title: "Backen",
             iconName: "chef-hat",
             status: "running",
             progress: 0.3,
