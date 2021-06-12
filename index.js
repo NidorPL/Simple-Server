@@ -55,6 +55,7 @@ fastify.post('/oven1/startProgram', async (request, reply) => {
     }
 
     const newProgram = ({
+        customApi: "default",
         ...supportedProgram,
         ...request.body
     })
@@ -83,19 +84,14 @@ fastify.post('/oven1/stopProgram', async (request, reply) => {
         reply.code(400).send(`Program ${programName} is not running`)
     }
 
-    console.log(0);
-    console.log(programName);
-
     db.oven1.runningPrograms = db.oven1.runningPrograms.filter(program => program.programName !== programName)
-
-    console.log(1);
-    console.log(db.oven1.runningPrograms);
 
     return db.oven1.runningPrograms
 })
 
-fastify.post('/oven1/editProgram', async (request, reply) => {
-    const {programName} = request.body
+fastify.post('/oven1/updateProgram', async (request, reply) => {
+    const {programName, newValue} = request.body
+
     const ovenData = db.oven1
 
     const supportedProgram = ovenData.supportedPrograms.find(sp => sp.programName === programName)
@@ -110,16 +106,16 @@ fastify.post('/oven1/editProgram', async (request, reply) => {
         reply.code(400).send(`Program ${programName} is not running`)
     }
 
-    db.table1 = db.table1.map((program) => {
-        if(program.programName === programName) {
+    db.oven1.runningPrograms = db.oven1.runningPrograms.map(runningProgram => {
+        if(runningProgram.programName === programName) {
             console.log("found");
-            return {...supportedProgram, ...request.body}
-        } else {
-            return program
+            return {
+                ...runningProgram,
+                value: newValue
+            }
         }
+        return runningProgram
     })
-
-    db.oven1.runningPrograms = db.oven1.runningPrograms.filter(program => program.programName === programName)
 
     return db.oven1.runningPrograms
 })
