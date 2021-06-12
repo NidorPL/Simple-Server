@@ -38,7 +38,7 @@ let oven1 = {
         programName: "bake1",
         title: "Backen",
         iconName: "chef-hat",
-        inputs: ["temperature in °C", "valueSuffix", "time"],
+        inputs: ["temperature", "valueSuffix", "time"],
         pModuleName: "LabeledProgress",
         connectionUrl: "/bake"
     },
@@ -50,19 +50,21 @@ let oven1 = {
             pModuleName: "LabeledProgress",
             connectionUrl: "/warm"
         }],
-    runningPrograms: [{
-        programName: "bake1",
-        pModuleName: "LabeledProgress",
-        customApi: "default",
-        title: "Backen",
-        iconName: "chef-hat",
-        status: "running",
-        progress: 0.3,
-        value: "240",
-        valueSuffix: "°C",
-        inputs: ["temperature in °C", "time"],
-    }]
+    runningPrograms: []
 }
+
+// {
+//     programName: "bake1",
+//         pModuleName: "LabeledProgress",
+//     customApi: "default",
+//     title: "Backen",
+//     iconName: "chef-hat",
+//     status: "running",
+//     progress: 0.3,
+//     value: "240",
+//     valueSuffix: "°C",
+//     inputs: ["temperature", "time"],
+// }
 
 
 

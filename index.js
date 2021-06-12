@@ -39,6 +39,7 @@ fastify.get('/oven1/runningPrograms', async (request, reply) => {
 
 // start program
 fastify.post('/oven1/startProgram', async (request, reply) => {
+    const newProgramData = request.body
     const {programName} = request.body
     const ovenData = db.oven1
 
@@ -57,7 +58,8 @@ fastify.post('/oven1/startProgram', async (request, reply) => {
     const newProgram = ({
         customApi: "default",
         ...supportedProgram,
-        ...request.body
+        ...request.body,
+        value: newProgramData[supportedProgram.inputs[0]]
     })
 
     db.oven1.runningPrograms.push(newProgram)
