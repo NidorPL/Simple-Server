@@ -29,8 +29,15 @@ fastify.get('/', async (request, reply) => {
  Oven 1
  */
 
-fastify.get('/oven1/supportedPrograms', async (request, reply) => {
-    return db.oven1.supportedPrograms
+fastify.get('/oven1/programsInfo', async (request, reply) => {
+    return {
+        info: {
+            deviceName: "Intelligenter Ofen",
+            deviceDescription: "Der intelligente Ofen vereinfacht in praktischer Weise Ihren Alltag. Starten Sie vom Wohnzimmmer aus ihren gewünschten Backvorgang oder sezten Sie direkt feste Regeln !",
+            iconName: "stove"
+        },
+        supportedPrograms: db.oven1.supportedPrograms
+    }
 })
 
 fastify.get('/oven1/runningPrograms', async (request, reply) => {
