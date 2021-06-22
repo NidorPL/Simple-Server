@@ -299,4 +299,89 @@ fastify.post('/table1/delete', async (request, reply) => {
 
 
 
+/*
+
+       Chatbots
+
+ */
+
+fastify.get('/doctor-bot1/init', async (request, reply) => {
+    return [
+        {
+            type: "simple-message",
+            text:
+                "Willkommen bei deinem persönlichen Assistent zu Gesundheitsfragen",
+            fromChatbot: true,
+            linkedRequest: "simple-test",
+        },
+        {
+            type: "simple-message",
+            text:
+                "Wählen Sie einen Themenbereich über den sie sprechen möchten oder stellen sie ihre Frage direkt",
+            fromChatbot: true,
+            linkedRequest: "simple-test",
+        },
+        {
+            type: "single-checkbox-message",
+            options: [
+                "TrockenerHusten",
+                "Fieber",
+                "Atembeschwerden",
+                "Abgeschlagenheit",
+                "Keine",
+            ],
+            linkedRequest: [
+                "chatbot?request=1",
+                "chatbot?request=2",
+                "chatbot?request=3",
+                "chatbot?request=4",
+                "chatbot?request=5",
+            ],
+        },
+    ]
+})
+
+
+
+
+
+fastify.get('/news-bot1/init', async (request, reply) => {
+    const labels = [
+        "Januar",
+        "Februar",
+        "März",
+        "April",
+        "Mai",
+        "Juni",
+    ];
+
+    const data = [
+        106,
+        110,
+        102,
+        110,
+        103,
+        106,
+    ];
+    return [
+        {
+            type: "simple-message",
+            text:
+                "Newsbot - Ihr persönlicher Assistent um informiert zu bleiben",
+            fromChatbot: true,
+            linkedRequest: "simple-test",
+        },
+        {
+            type: "chart-message",
+            headline: "Aktienkurs Apple",
+            headlineInfo: "111 €",
+            chartData: { labels, data },
+            fromChatbot: true,
+            showSmall: false,
+            linkedRequest: "chart-test",
+        },
+    ]
+})
+
+
 
