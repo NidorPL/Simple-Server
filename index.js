@@ -129,8 +129,130 @@ fastify.post('/oven1/updateProgram', async (request, reply) => {
     return db.oven1.runningPrograms
 })
 
+
 /*
+ Oven 1
+ */
+
+fastify.get('/coffee1/programsInfo', async (request, reply) => {
+    return {
+        info: {
+            deviceName: "Intelligente Kaffeemaschine",
+            deviceDescription: "Ihr persönliches Kaffeeerlebnis",
+            iconName: "coffee"
+        },
+        supportedPrograms: db.coffee1.supportedPrograms
+    }
+})
+
+fastify.get('/coffee1/runningPrograms', async (request, reply) => {
+    return db.coffee1.runningPrograms
+})
+
+// start program
+fastify.post('/coffee1/startProgram', async (request, reply) => {
+    const newProgramData = request.body
+    const {programName} = request.body
+    const coffee1Data = db.coffee1
+
+    const supportedProgram = coffee1Data.supportedPrograms.find(sp => sp.programName === programName)
+
+    if (!supportedProgram) {
+        reply.code(400).send("Program not supported")
+    }
+
+    const alreadyRunningProgram = coffee1Data.runningPrograms.find(sp => sp.programName === programName)
+
+    if (alreadyRunningProgram) {
+        reply.code(400).send(`Program ${programName} is already running`)
+    }
+
+    const newProgram = ({
+        customApi: "default",
+        ...supportedProgram,
+        ...request.body,
+        value: newProgramData[supportedProgram.inputs[0]]  || "Wird ausgeführt..."
+    })
+
+    console.log("newProgram");
+    console.log(newProgram);
+
+    db.coffee1.runningPrograms.push(newProgram)
+
+    return db.coffee1.runningPrograms
+})
+
+
+// stop program
+
+fastify.post('/coffee1/stopProgram', async (request, reply) => {
+    const {programName} = request.body
+    const coffee1Data = db.coffee1
+
+    const supportedProgram = coffee1Data.supportedPrograms.find(sp => sp.programName === programName)
+
+    if (!supportedProgram) {
+        reply.code(400).send("Program not supported")
+    }
+
+    const alreadyRunningProgram = coffee1Data.runningPrograms.find(sp => sp.programName === programName)
+
+    if (!alreadyRunningProgram) {
+        reply.code(400).send(`Program ${programName} is not running`)
+    }
+
+    db.coffee1.runningPrograms = db.coffee1.runningPrograms.filter(program => program.programName !== programName)
+
+    return db.coffee1.runningPrograms
+})
+
+fastify.post('/coffee1/updateProgram', async (request, reply) => {
+    const {programName, newValue} = request.body
+
+    const ovenData = db.coffee1
+
+    const supportedProgram = ovenData.supportedPrograms.find(sp => sp.programName === programName)
+
+    if (!supportedProgram) {
+        reply.code(400).send("Program not supported")
+    }
+
+    const alreadyRunningProgram = ovenData.runningPrograms.find(sp => sp.programName === programName)
+
+    if (!alreadyRunningProgram) {
+        reply.code(400).send(`Program ${programName} is not running`)
+    }
+
+    db.coffee1.runningPrograms = db.coffee1.runningPrograms.map(runningProgram => {
+        if(runningProgram.programName === programName) {
+            console.log("found");
+            return {
+                ...runningProgram,
+                value: newValue
+            }
+        }
+        return runningProgram
+    })
+
+    return db.coffee1.runningPrograms
+})
+
+
+
+
+
+
+
+
+
+
+/*
+
+
  Table 1
+
+
+
  */
 
 fastify.get('/table1/data', async (request, reply) => {

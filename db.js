@@ -65,11 +65,42 @@ let oven1 = {
     ]
 }
 
+let coffee1 = {
+    supportedPrograms:  [{
+        programName: "Kaffee machen",
+        iconName: "coffee",
+        inputs: [],
+        pModuleName: "LabeledProgress",
+        valueSuffix: "",
+    },
+        {
+            programName: "Latte macchiato machen",
+            iconName: "coffee-outline",
+            inputs: [""],
+            valueSuffix: "",
+            pModuleName: "LabeledProgress",
+            connectionUrl: "/late"
+        }],
+    runningPrograms: [
+        {
+            programName: "Latte macchiato machen",
+            iconName: "coffee-outline",
+            customApi: "default",
+            inputs: [""],
+            valueSuffix: "",
+            pModuleName: "LabeledProgress",
+            progress: 0.8,
+            value: "Kaffee brühen..."
+        }
+    ]
+}
+
 
 
 module.exports = {
     table1,
-    oven1
+    oven1,
+    coffee1
 }
 
 
