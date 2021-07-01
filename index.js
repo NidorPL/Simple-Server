@@ -17,7 +17,6 @@ const start = async () => {
 start()
 
 fastify.register(require('fastify-cors'), {
-    // put your options here
 })
 
 
@@ -237,15 +236,6 @@ fastify.post('/coffee1/updateProgram', async (request, reply) => {
     return db.coffee1.runningPrograms
 })
 
-
-
-
-
-
-
-
-
-
 /*
 
 
@@ -379,6 +369,18 @@ fastify.get('/news-bot1/init', async (request, reply) => {
             fromChatbot: true,
             showSmall: false,
             linkedRequest: "chart-test",
+        },
+    ]
+})
+
+fastify.get('/oven-bot1/init', async (request, reply) => {
+    return [
+        {
+            type: "simple-message",
+            text:
+                "Möchten Sie etwas Neues zubereiten ?",
+            fromChatbot: true,
+            linkedRequest: "simple-test",
         },
     ]
 })

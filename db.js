@@ -3,33 +3,33 @@ let table1 = [
     {
         id: 1,
         name: "Käse",
-        quantity: 200,
-        unit: "gramm",
-        bbf: "",
+        menge: 200,
+        einheit: "gramm",
+        haltbarkeit: "13.06.21",
 
     },
     {
         id: 2,
         name: "Krakauer",
-        quantity: 500,
-        unit: "gramm",
-        bbf: "",
+        menge: 500,
+        einheit: "gramm",
+        haltbarkeit: "15.06.21",
 
     },
     {
         id: 3,
         name: "Brot",
-        quantity: 1,
-        unit: "kg",
-        bbf: "",
+        menge: 1,
+        einheit: "kg",
+        haltbarkeit: "10.06.21",
 
     },
     {
         id: 4,
         name: "Milch",
-        quantity: 2,
-        unit: "Liter",
-        bbf: "",
+        menge: 2,
+        einheit: "Liter",
+        haltbarkeit: "20.04.22",
     },
 ]
 
